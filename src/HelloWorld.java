@@ -26,6 +26,15 @@ public class HelloWorld
 
     public static void tulostus(String teksti)
     {
+        // Jos teksti on liian pitkä, jaetaan se usealle riville
+        while (teksti.length() > 16)
+        {
+            LCD.drawString(teksti.substring(0, 16), 0, nykyinenRivi);
+            teksti = teksti.substring(16);
+            nykyinenRivi++;
+        }
+
+        // Tulostetaan loput tekstistä
         LCD.drawString(teksti, 0, nykyinenRivi);
         nykyinenRivi++;
     }
