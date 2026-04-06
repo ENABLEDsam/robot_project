@@ -6,6 +6,7 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
+import lejos.utility.Delay;
 
 //
 public class DoNotBump {
@@ -37,6 +38,7 @@ public static void main(String[] args) {
                 leftMotor.forward();
                 rightMotor.forward();
             }
+            Delay.msDelay(50);
         }
 
         leftMotor.stop();
