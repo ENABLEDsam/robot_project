@@ -14,7 +14,7 @@ public class UltrasonicSensor {
 
     public static void main(String[] args) {
 
-        EV3UltrasonicSensor usSensor = new EV3UltrasonicSensor(SensorPort.S1);
+        EV3UltrasonicSensor usSensor = new EV3UltrasonicSensor(SensorPort.S2);
         SampleProvider distanceSample = usSensor.getDistanceMode();
         float[] distanceData = new float[distanceSample.sampleSize()];
 
