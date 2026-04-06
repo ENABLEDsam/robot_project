@@ -14,7 +14,7 @@ public class LightSensor {
     public static void main(String[] args) {
 
         // Light sensor
-        EV3ColorSensor lightSensor = new EV3ColorSensor(SensorPort.S4);
+        EV3ColorSensor lightSensor = new EV3ColorSensor(SensorPort.S3);
         SampleProvider lightSample = lightSensor.getRedMode(); 
         float[] lightData = new float[lightSample.sampleSize()];
 
