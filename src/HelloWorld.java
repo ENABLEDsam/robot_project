@@ -6,27 +6,36 @@ import lejos.utility.Delay;
 
 public class HelloWorld
 {
+    static int nykyinenRivi = 0;
+
     public static void main(String[] args)
     {
-        // String message1 = "This is my 1st LEGO code.";
-        // String message2 = "Make me autonomous";
-        // String message3 = "Press any button to Stop.";
         LCD.clear();
-        LCD.drawString("Welcome", 0, 0);
 
+        tulostus("Welcome");
         Delay.msDelay(1000);
-       
-        // TextWrap(message2);
-        LCD.drawString("This is my 1st LEGO code.", 0, 1);
 
+        tulostus("This is my 1st LEGO code.");
         Delay.msDelay(2000);
-        LCD.drawString("Make me autonomous", 0, 2);
-        // TextWrap(message3);
-        LCD.drawString("Press any button to Stop.", 0,4);
-       
-        // Wait for a button press to exit
+
+        tulostus("Make me autonomous");
+        tulostus("Press any button to Stop.");
+
         Button.waitForAnyPress();
     }
 
+    public static void tulostus(String teksti)
+    {
+        // Jos teksti on liian pitkä, jaetaan se usealle riville
+        while (teksti.length() > 16)
+        {
+            LCD.drawString(teksti.substring(0, 16), 0, nykyinenRivi);
+            teksti = teksti.substring(16);
+            nykyinenRivi++;
+        }
 
+        // Tulostetaan loput tekstistä
+        LCD.drawString(teksti, 0, nykyinenRivi);
+        nykyinenRivi++;
+    }
 }
