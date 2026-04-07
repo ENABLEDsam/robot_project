@@ -73,7 +73,7 @@ public class SensorsCombined {
 
                 
                 // Line following
-                if (lightValue < 30) { // dark (on the line)
+                if (lightValue < 30) { // dark color (on the line)
                     leftMotor.setSpeed(normalSpeed);
                     rightMotor.setSpeed(normalSpeed);
                     leftMotor.forward();
@@ -82,7 +82,7 @@ public class SensorsCombined {
     
 
 
-                else { // light (off the line)
+                else { // light color (off the line)
                     leftMotor.setSpeed(normalSpeed);
                     rightMotor.setSpeed(normalSpeed);
                     leftMotor.backward();

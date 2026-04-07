@@ -35,8 +35,9 @@ public class LightSensor {
             int lightValue = (int)(lightData[0] * 100);
 
     
+            
             // Line following
-            if (lightValue < 30) { // dark (on the line)
+            if (lightValue < 30) { // dark color (on the line)
                 leftMotor.setSpeed(baseSpeed);
                 rightMotor.setSpeed(baseSpeed);
                 leftMotor.forward();
@@ -44,13 +45,14 @@ public class LightSensor {
             } 
             
             
-            else { // light (off the line)
+            else { // light color (off the line)
                 leftMotor.setSpeed(baseSpeed);
                 rightMotor.setSpeed(baseSpeed);
                 leftMotor.backward();
                 rightMotor.forward();
             }
 
+            
             
             Delay.msDelay(50); // loop delay
         }
