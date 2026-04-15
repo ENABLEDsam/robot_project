@@ -44,7 +44,7 @@ public static void main(String[] args) {
                 // Drive forward
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(700);
+                Delay.msDelay(3000);
 
                 // Turn right to return to the line
                 leftMotor.forward();

@@ -28,7 +28,7 @@ public class LightSensor {
         EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
 
         
-        int baseSpeed = 200;
+        int baseSpeed = 150;
 
         
         
@@ -41,11 +41,9 @@ public class LightSensor {
             // Read sensor
             lightSample.fetchSample(lightData, 0);
             int lightValue = (int)(lightData[0] * 100);
-
-        
             
             
-            if (lightValue < 30) { 
+            if (lightValue < 45) { 
                 // dark color = turn slightly right
                 leftMotor.setSpeed(baseSpeed + 50);
                 rightMotor.setSpeed(baseSpeed - 50);
