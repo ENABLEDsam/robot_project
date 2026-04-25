@@ -1,0 +1,8 @@
+Santeri's Role:
+
+Leevi's Role:
+
+Valtteri's Role: Implemented ultrasonic sensor and obstacle avoidance.
+Ultrasonic sensor checks for obstacle, if object is less than 20cm
+the robot stops, turns left, goes forward then turns right and goes forward
+and keeps checking if there is an obstacle within 20 cm.
