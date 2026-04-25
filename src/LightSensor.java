@@ -28,7 +28,7 @@ public class LightSensor {
         EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
 
         
-        int baseSpeed = 200;
+        int baseSpeed = 150;
 
         
         
