@@ -1,8 +1,58 @@
+ROLES:
+
 Santeri's Role:
 
-Leevi's Role:
+Leevi's Role: Implemented the light sensor and line following functionality.
+Responsible for programming how the robot detects the line and adjusts its movement accordingly.
 
 Valtteri's Role: Implemented ultrasonic sensor and obstacle avoidance.
 Ultrasonic sensor checks for obstacle, if object is less than 20cm
 the robot stops, turns left, goes forward then turns right and goes forward
 and keeps checking if there is an obstacle within 20 cm.
+
+
+
+PROGRAM OVERVIEW:
+
+The robot follows a line using the data provided by the color sensor to determine whether the robot is on a dark surface (line) or a light surface.
+The robot adjusts the operation of the motors according to the color of the surface.
+
+When the color sensor detects a dark surface, the robot turns slightly to the right. 
+When it detects a light surface, it turns slightly to the left. This creates a continuous "zig zag" line tracking.
+
+The robot also uses an ultrasonic sensor to detect obstacles.
+If an obstacle is detected within 20 centimeters, the robot temporarily stops following the line and performs an evasive movement.
+
+After the evasive maneuver, the robot moves forward until the color sensor detects the line again.
+Once the line is found, the robot continues normal line tracking.
+
+
+
+THREADS AND PROGRAM STRUCTURE:
+
+The program runs in a single main loop where sensor readings and motor control are constantly updated.
+
+The loop performs three main tasks:
+
+1. Reads sensor values ​​(color and distance).
+2. Decides on behavior (line following or obstacle avoidance).
+3. Controls motors according to the decision.
+
+Although the implementation is sequential, the structure follows the same logic as separate threads:
+
+- Sensor reading
+- Decision making
+- Motor control
+
+These components communicate through shared variables such as lightValue and distance.
+
+
+
+SUMMARY:
+
+The robot successfully:
+
+- Follows a line using a light sensor.
+- Detects obstacles using an ultrasonic sensor.
+- Avoids obstacles and returns back to the line.
+- Continues line following after avoidance.
