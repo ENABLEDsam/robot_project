@@ -44,13 +44,28 @@ public static void main(String[] args) {
                 // Drive forward
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(700);
+                Delay.msDelay(3000);
 
                 // Turn right to return to the line
                 leftMotor.forward();
                 rightMotor.backward();
                 Delay.msDelay(700);
 
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(2000);
+
+                leftMotor.forward();
+                rightMotor.backward();
+                Delay.msDelay(700);
+
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(3000);
+
+                leftMotor.backward();
+                rightMotor.forward();
+                Delay.msDelay(700);
             }
             else {
                 // If there is no obstacle = Drive straight
