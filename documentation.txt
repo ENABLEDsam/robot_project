@@ -1,6 +1,9 @@
 ROLES:
 
-Santeri's Role:
+Santeri's Role: Tested for and fixed bugs with the actual robot, and getting code within the robot.
+Made a physical track and tested the light sensor on it. Also tested ultrasonic sensor dodging
+and light levels with the light sensor. Recorded testing videos and worked with GitHub merging.
+Created the movement diagram.
 
 Leevi's Role: Implemented the light sensor and line following functionality.
 Responsible for programming how the robot detects the line and adjusts its movement accordingly.
