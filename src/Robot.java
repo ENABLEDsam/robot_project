@@ -42,6 +42,20 @@ public class Robot {
             int lightValue = (int)(lightData[0] * 100);
             float distance = distanceData[0];
 
+            // LINE FOLLOWING
+            if (lightValue < threshold) {
+                // dark → right
+                leftMotor.setSpeed(baseSpeed + 50);
+                rightMotor.setSpeed(baseSpeed - 50);
+            } else {
+                // light → left
+                leftMotor.setSpeed(baseSpeed - 50);
+                rightMotor.setSpeed(baseSpeed + 50);
+            }
+
+            leftMotor.forward();
+            rightMotor.forward();
+
             // OBSTACLE AVOIDANCE
             if (distance < passDistance) {
 
@@ -82,30 +96,13 @@ public class Robot {
                     lightSample.fetchSample(lightData, 0);
                     lightValue = (int)(lightData[0] * 100);
 
-                // If line is found, break the loop and return to line following
+                    // If line is found, break the loop and return to line following
                     if (lightValue < threshold) {
                         break;
                     }
 
                     Delay.msDelay(10);
                 }
-
-            }
-            else {
-
-                // LINE FOLLOWING
-                if (lightValue < threshold) {
-                    // dark → right
-                    leftMotor.setSpeed(baseSpeed + 50);
-                    rightMotor.setSpeed(baseSpeed - 50);
-                } else {
-                    // light → left
-                    leftMotor.setSpeed(baseSpeed - 50);
-                    rightMotor.setSpeed(baseSpeed + 50);
-                }
-
-                leftMotor.forward();
-                rightMotor.forward();
             }
 
             Delay.msDelay(50);
