@@ -5,3 +5,10 @@
 "C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe LightTester.jar src.LightTester -C . src
 "C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe RobotWithColor.jar src.RobotWithColor -C . src
 "C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe Colortester.jar src.Colortester -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe AmbientMode.jar src.AmbientMode -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe LightSensor25.jar src.LightSensor25 -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe LightSensor35.jar src.LightSensor35 -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe LightSensor55.jar src.LightSensor55 -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe LightSensor65.jar src.LightSensor65 -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe Robot.jar src.Robot -C . src
+"C:\Program Files\Java\jdk1.7.0_80\bin\jar" -cfe RobotMirror.jar src.RobotMirror -C . src

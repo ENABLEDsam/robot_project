@@ -1,22 +1,23 @@
 package src;
 
 import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
-import lejos.robotics.Color;
 import lejos.utility.Delay;
 
-public class RobotWithColor {
+public class RobotMirror {
 
     public static void main(String[] args) {
 
-        // COLOR SENSOR (changed)
-        EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S3);
-        float[] colorData = new float[colorSensor.getRGBMode().sampleSize()];
+        // LIGHT SENSOR
+        EV3ColorSensor lightSensor = new EV3ColorSensor(SensorPort.S3);
+        SampleProvider lightSample = lightSensor.getRedMode();
+        float[] lightData = new float[lightSample.sampleSize()];
 
         // ULTRASONIC SENSOR
         EV3UltrasonicSensor usSensor = new EV3UltrasonicSensor(SensorPort.S2);
@@ -31,27 +32,27 @@ public class RobotWithColor {
         int baseSpeed = 150;
         int turnSpeed = 125;
         float passDistance = 0.20f;
-        
+        int threshold = 25;
+
+        LCD.drawString("sheer heart attack", 0, 0);
+        LCD.drawString("has no weakness", 0, 1);
 
         while (!Button.ESCAPE.isDown()) {
 
             // READ SENSORS
+            lightSample.fetchSample(lightData, 0);
             distanceSample.fetchSample(distanceData, 0);
+
+            int lightValue = (int)(lightData[0] * 100);
             float distance = distanceData[0];
 
-            colorSensor.getRGBMode().fetchSample(colorData, 0);
-            float red = colorData[0] * 10;
-            float green = colorData[1] * 10;
-            float blue = colorData[2] * 10;
-
-            float blackThreshold = 1;
-            // LINE FOLLOWING (using color instead of light)
-            if (red < blackThreshold && green < blackThreshold && blue < blackThreshold) {
-                // black → right
+            // LINE FOLLOWING
+            if (lightValue < threshold) {
+                // dark → right
                 leftMotor.setSpeed(baseSpeed + 50);
                 rightMotor.setSpeed(baseSpeed - 50);
             } else {
-                // not black → left
+                // light → left
                 leftMotor.setSpeed(baseSpeed - 50);
                 rightMotor.setSpeed(baseSpeed + 50);
             }
@@ -65,6 +66,16 @@ public class RobotWithColor {
                 // Turn left
                 leftMotor.setSpeed(turnSpeed);
                 rightMotor.setSpeed(turnSpeed);
+                leftMotor.forward();
+                rightMotor.backward();
+                Delay.msDelay(700);
+
+                // Drive forward
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(4500);
+
+                // Turn right
                 leftMotor.backward();
                 rightMotor.forward();
                 Delay.msDelay(700);
@@ -74,34 +85,23 @@ public class RobotWithColor {
                 rightMotor.forward();
                 Delay.msDelay(3000);
 
-                // Turn right
-                leftMotor.forward();
-                rightMotor.backward();
-                Delay.msDelay(700);
-
-                // Drive forward
-                leftMotor.forward();
-                rightMotor.forward();
-                Delay.msDelay(2000);
-
                 // Turn right again
-                leftMotor.forward();
-                rightMotor.backward();
-                Delay.msDelay(700);
+                leftMotor.backward();
+                rightMotor.forward();
+                Delay.msDelay(200);
 
-                // Drive forward until line (black) is found
+                // Drive forward until line is found
                 leftMotor.forward();
                 rightMotor.forward();
 
+                // Wait until line is found
                 while (true) {
 
-                    colorSensor.getRGBMode().fetchSample(colorData, 0);
-                    float red2 = colorData[0];
-                    float green2 = colorData[1];
-                    float blue2 = colorData[2];
+                    lightSample.fetchSample(lightData, 0);
+                    lightValue = (int)(lightData[0] * 100);
 
-                    // If black line found → break
-                    if (red2 < blackThreshold && green2 < blackThreshold && blue2 < blackThreshold) {
+                    // If line is found, break the loop and return to line following
+                    if (lightValue < threshold) {
                         break;
                     }
 
@@ -117,7 +117,7 @@ public class RobotWithColor {
         rightMotor.stop();
         leftMotor.close();
         rightMotor.close();
-        colorSensor.close();
+        lightSensor.close();
         usSensor.close();
     }
 }

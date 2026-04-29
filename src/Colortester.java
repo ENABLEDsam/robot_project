@@ -18,12 +18,15 @@ public class Colortester {
 
         while (!Button.ESCAPE.isDown()) {
             colorSensor.getRGBMode().fetchSample(colorData, 0);
-            float red = colorData[0];
-            float green = colorData[1];
-            float blue = colorData[2];
-            String valueToText = "R: " + Float.toString(red) + "G: " + Float.toString(green) + "B: " + Float.toString(blue);
-        
-            LCD.drawString(valueToText,0,0);
+            float red = colorData[0] * 10;
+            float green = colorData[1] * 10;
+            float blue = colorData[2] * 10;
+            String one = "R: " + Float.toString(red);
+            String two = "G: " + Float.toString(green);
+            String three = "B: " + Float.toString(blue);
+            LCD.drawString(one,0,0);
+            LCD.drawString(two,0,1);
+            LCD.drawString(three,0,2);
             Delay.msDelay(50);
         }
 

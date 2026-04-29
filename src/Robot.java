@@ -1,6 +1,7 @@
 package src;
 
 import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
@@ -32,6 +33,10 @@ public class Robot {
         int turnSpeed = 125;
         float passDistance = 0.20f;
         int threshold = 25;
+        int lineTurning = 75;
+
+        LCD.drawString("sheer heart attack", 0, 0);
+        LCD.drawString("has no weakness", 0, 1);
 
         while (!Button.ESCAPE.isDown()) {
 
@@ -41,20 +46,6 @@ public class Robot {
 
             int lightValue = (int)(lightData[0] * 100);
             float distance = distanceData[0];
-
-            // LINE FOLLOWING
-            if (lightValue < threshold) {
-                // dark → right
-                leftMotor.setSpeed(baseSpeed + 50);
-                rightMotor.setSpeed(baseSpeed - 50);
-            } else {
-                // light → left
-                leftMotor.setSpeed(baseSpeed - 50);
-                rightMotor.setSpeed(baseSpeed + 50);
-            }
-
-            leftMotor.forward();
-            rightMotor.forward();
 
             // OBSTACLE AVOIDANCE
             if (distance < passDistance) {
@@ -69,7 +60,7 @@ public class Robot {
                 // Drive forward
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(3000);
+                Delay.msDelay(4500);
 
                 // Turn right
                 leftMotor.forward();
@@ -79,12 +70,12 @@ public class Robot {
                 // Drive forward
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(2000);
+                Delay.msDelay(3000);
 
                 // Turn right again
-                leftMotor.forward();
-                rightMotor.backward();
-                Delay.msDelay(700);
+                //leftMotor.forward();
+                //rightMotor.backward();
+                //Delay.msDelay(100);
 
                 // Drive forward until line is found
                 leftMotor.forward();
@@ -104,6 +95,30 @@ public class Robot {
                     Delay.msDelay(10);
                 }
             }
+
+            // LINE FOLLOWING
+            if (lightValue < threshold) {
+                // dark → right
+                //leftMotor.setSpeed(baseSpeed + lineTurning);
+                //rightMotor.setSpeed(baseSpeed - lineTurning);
+
+                // dark → left
+                leftMotor.setSpeed(baseSpeed - lineTurning);
+                rightMotor.setSpeed(baseSpeed + lineTurning);
+            } else {
+                // light → left
+                //leftMotor.setSpeed(baseSpeed - lineTurning);
+                //rightMotor.setSpeed(baseSpeed + lineTurning);
+
+                // light → right
+                leftMotor.setSpeed(baseSpeed + lineTurning);
+                rightMotor.setSpeed(baseSpeed - lineTurning);
+            }
+
+            leftMotor.forward();
+            rightMotor.forward();
+
+            
 
             Delay.msDelay(50);
         }

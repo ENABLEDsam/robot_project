@@ -5,3 +5,10 @@
 "C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\LightTester.java
 "C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\RobotWithColor.java
 "C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\Colortester.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\AmbientMode.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\LightSensor25.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\LightSensor35.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\LightSensor55.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\LightSensor65.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\Robot.java
+"C:\Program Files\Java\jdk1.7.0_80\bin\javac" -classpath  "lib\ev3classes.jar" src\RobotMirror.java
