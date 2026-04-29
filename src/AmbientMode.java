@@ -1,6 +1,7 @@
 package src;
 
 import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD; // <-- LISÄTTY
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
@@ -13,7 +14,7 @@ public class AmbientMode {
 
     public static void main(String[] args) {
 
-        // AMBIENT LIGHT SENSOR (changed)
+        // AMBIENT LIGHT SENSOR
         EV3ColorSensor lightSensor = new EV3ColorSensor(SensorPort.S3);
         SampleProvider lightSample = lightSensor.getAmbientMode();
         float[] lightData = new float[lightSample.sampleSize()];
@@ -42,13 +43,15 @@ public class AmbientMode {
             int lightValue = (int)(lightData[0] * 100);
             float distance = distanceData[0];
 
-            // LINE FOLLOWING (ambient light)
+            // 🔵 NÄYTÄ ARVO NÄYTÖLLÄ
+            LCD.clear();
+            LCD.drawString("Light: " + lightValue + "%", 0, 0);
+
+            // LINE FOLLOWING
             if (lightValue < threshold) {
-                // darker → right
                 leftMotor.setSpeed(baseSpeed + 50);
                 rightMotor.setSpeed(baseSpeed - 50);
             } else {
-                // brighter → left
                 leftMotor.setSpeed(baseSpeed - 50);
                 rightMotor.setSpeed(baseSpeed + 50);
             }
@@ -59,34 +62,28 @@ public class AmbientMode {
             // OBSTACLE AVOIDANCE
             if (distance < passDistance) {
 
-                // Turn left
                 leftMotor.setSpeed(turnSpeed);
                 rightMotor.setSpeed(turnSpeed);
                 leftMotor.backward();
                 rightMotor.forward();
                 Delay.msDelay(700);
 
-                // Drive forward
                 leftMotor.forward();
                 rightMotor.forward();
                 Delay.msDelay(3000);
 
-                // Turn right
                 leftMotor.forward();
                 rightMotor.backward();
                 Delay.msDelay(700);
 
-                // Drive forward
                 leftMotor.forward();
                 rightMotor.forward();
                 Delay.msDelay(2000);
 
-                // Turn right again
                 leftMotor.forward();
                 rightMotor.backward();
                 Delay.msDelay(700);
 
-                // Drive forward until "line" (dark) is found
                 leftMotor.forward();
                 rightMotor.forward();
 
@@ -94,6 +91,10 @@ public class AmbientMode {
 
                     lightSample.fetchSample(lightData, 0);
                     lightValue = (int)(lightData[0] * 100);
+
+                    // 🔵 PÄIVITÄ NÄYTTÖ TÄÄLLÄKIN
+                    LCD.clear();
+                    LCD.drawString("Light: " + lightValue + "%", 0, 0);
 
                     if (lightValue < threshold) {
                         break;
