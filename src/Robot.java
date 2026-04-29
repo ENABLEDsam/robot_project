@@ -31,7 +31,7 @@ public class Robot {
         int baseSpeed = 150;
         int turnSpeed = 125;
         float passDistance = 0.20f;
-        int threshold = 45;
+        int threshold = 25;
 
         while (!Button.ESCAPE.isDown()) {
 
