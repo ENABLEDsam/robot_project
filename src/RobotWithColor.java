@@ -16,6 +16,7 @@ public class RobotWithColor {
 
         // COLOR SENSOR (changed)
         EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S3);
+        float[] colorData = new float[colorSensor.getRGBMode().sampleSize()];
 
         // ULTRASONIC SENSOR
         EV3UltrasonicSensor usSensor = new EV3UltrasonicSensor(SensorPort.S2);
@@ -30,6 +31,7 @@ public class RobotWithColor {
         int baseSpeed = 150;
         int turnSpeed = 125;
         float passDistance = 0.20f;
+        
 
         while (!Button.ESCAPE.isDown()) {
 
@@ -37,10 +39,14 @@ public class RobotWithColor {
             distanceSample.fetchSample(distanceData, 0);
             float distance = distanceData[0];
 
-            int color = colorSensor.getColorID();
+            colorSensor.getRGBMode().fetchSample(colorData, 0);
+            float red = colorData[0];
+            float green = colorData[1];
+            float blue = colorData[2];
 
+            float blackThreshold = (red + green + blue) / 3 + 0.02f;
             // LINE FOLLOWING (using color instead of light)
-            if (color == Color.BLACK) {
+            if (red < blackThreshold && green < blackThreshold && blue < blackThreshold) {
                 // black → right
                 leftMotor.setSpeed(baseSpeed + 50);
                 rightMotor.setSpeed(baseSpeed - 50);
@@ -89,10 +95,13 @@ public class RobotWithColor {
 
                 while (true) {
 
-                    color = colorSensor.getColorID();
+                    colorSensor.getRGBMode().fetchSample(colorData, 0);
+                    float red2 = colorData[0];
+                    float green2 = colorData[1];
+                    float blue2 = colorData[2];
 
                     // If black line found → break
-                    if (color == Color.BLACK) {
+                    if (red2 < blackThreshold && green2 < blackThreshold && blue2 < blackThreshold) {
                         break;
                     }
 
